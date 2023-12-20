@@ -14,7 +14,7 @@ class HeroController extends Controller
     {
         $hero=Http::withHeaders([
             'Accept'=>'application/json',
-            'Authorization'=>'Bearer 378|Efb9Nus2Jz0u5evHN5yrxJJoo2E3TzYiMutAcUtC7ae81558'
+            'Authorization'=>'Bearer 25|AFXTaPxBgmm99ALBbFZaCdmQKiLHIioRhyygxRMu468205ad'
         ])->get('https://erp.digitalindustryagency.com/api/heroes');
 
         return view('menu-content.hero.index', compact('hero'));

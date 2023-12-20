@@ -16,7 +16,7 @@ class ContentCategoryController extends Controller
     {
         $contentCategory=Http::withHeaders([
             'Accept'=>'application/json',
-            'Authorization'=>'Bearer 378|Efb9Nus2Jz0u5evHN5yrxJJoo2E3TzYiMutAcUtC7ae81558'
+            'Authorization'=>'Bearer 25|AFXTaPxBgmm99ALBbFZaCdmQKiLHIioRhyygxRMu468205ad'
         ])->get('https://erp.digitalindustryagency.com/api/category-contents');
         // dd($contentCategory->json());
         return view('menu-content.category-content.index', compact('contentCategory'));
@@ -48,7 +48,7 @@ class ContentCategoryController extends Controller
             // Menyiapkan header yang perlu disertakan dalam permintaan
             $headers = [
                 'Accept' => 'application/json',
-                'Authorization' => 'Bearer 378|Efb9Nus2Jz0u5evHN5yrxJJoo2E3TzYiMutAcUtC7ae81558',
+                'Authorization' => 'Bearer 25|AFXTaPxBgmm99ALBbFZaCdmQKiLHIioRhyygxRMu468205ad',
             ];
 
             // Mengirimkan data dan file foto ke API eksternal dengan penambahan header
@@ -81,7 +81,7 @@ class ContentCategoryController extends Controller
         // Membuat header Authorization dengan bearer token
         $headers = [
             'Accept'=>'application/json',
-            'Authorization' => 'Bearer 378|Efb9Nus2Jz0u5evHN5yrxJJoo2E3TzYiMutAcUtC7ae81558',
+            'Authorization' => 'Bearer 25|AFXTaPxBgmm99ALBbFZaCdmQKiLHIioRhyygxRMu468205ad',
         ];
 
         // Lakukan permintaan ke API untuk mendapatkan data kategori berdasarkan ID dengan header yang ditentukan
@@ -116,7 +116,7 @@ class ContentCategoryController extends Controller
         // Membuat header Authorization dengan bearer token
         $headers = [
             'Accept'=>'application/json',
-            'Authorization' => 'Bearer 378|Efb9Nus2Jz0u5evHN5yrxJJoo2E3TzYiMutAcUtC7ae81558',
+            'Authorization' => 'Bearer 25|AFXTaPxBgmm99ALBbFZaCdmQKiLHIioRhyygxRMu468205ad',
         ];
 
         // Cek apakah ada file yang diunggah
@@ -156,7 +156,7 @@ class ContentCategoryController extends Controller
     {
         Http::withHeaders([
             'Accept'=>'application/json',
-            'Authorization'=>'Bearer 378|Efb9Nus2Jz0u5evHN5yrxJJoo2E3TzYiMutAcUtC7ae81558'
+            'Authorization'=>'Bearer 25|AFXTaPxBgmm99ALBbFZaCdmQKiLHIioRhyygxRMu468205ad'
         ])->delete('https://erp.digitalindustryagency.com/api/category-contents/'. $id);
         return redirect()->route('category-content.index');
     }
