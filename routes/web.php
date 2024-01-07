@@ -22,7 +22,15 @@ Route::get('/dashboard', function(){
     return view('dashboard');
 })->name('dashboard');
 
+// Route untuk menampilkan halaman login
+Route::get('/login', function(){
+    return view('auth.login');
+})->name('login');
+// Route untuk melakukan proses login
 Route::post('/login', [AuthController::class, 'login'])->name('login');
+// Route untuk logout
+Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+
 
 Route::resource('/dashboard/category-content', \App\Http\Controllers\ContentCategoryController::class);
 Route::resource('/dashboard/hero', \App\Http\Controllers\HeroController::class);

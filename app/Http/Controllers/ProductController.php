@@ -12,9 +12,11 @@ class ProductController extends Controller
      */
     public function index(Request $request)
     {
+        $token = session('token');
+
         $product=Http::withHeaders([
             'Accept'=>'application/json',
-            'Authorization'=>'Bearer 454|GwcFfaT0gmJFFWeS74gBu4HkcpgHd6dc8GbOjxSF7d3302c4'
+            'Authorization'=>"Bearer $token",
         ])->get('https://erp.digitalindustryagency.com/api/contents');
         //dd($product->json());
 
@@ -27,16 +29,23 @@ class ProductController extends Controller
      */
     public function create(Request $request)
     {
+        $token = session('token');
+
         $product=Http::withHeaders([
             'Accept'=>'application/json',
-            'Authorization'=>'Bearer 454|GwcFfaT0gmJFFWeS74gBu4HkcpgHd6dc8GbOjxSF7d3302c4'
+            'Authorization'=>"Bearer $token",
         ])->get('https://erp.digitalindustryagency.com/api/contents');
         $productlist=Http::withHeaders([
             'Accept'=>'application/json',
-            'Authorization'=>'Bearer 454|GwcFfaT0gmJFFWeS74gBu4HkcpgHd6dc8GbOjxSF7d3302c4'
+            'Authorization'=>"Bearer $token",
         ])->get('https://erp.digitalindustryagency.com/api/products');
+        $categoryproduct=Http::withHeaders([
+            'Accept'=>'application/json',
+            'Authorization'=>"Bearer $token",
+        ])->get('https://erp.digitalindustryagency.com/api/product-categories');
 
-        return view('menu-content.product.create',compact('product', 'productlist'));
+
+        return view('menu-content.product.create',compact('product', 'productlist', 'categoryproduct'));
     }
 
     /**
@@ -44,7 +53,9 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+        $token = session('token');
         $validatedData = $request->validate([
+            'content_title' => 'required',
             'product_id' => 'required',
             'price' => 'required',
             'color' => 'required',
@@ -63,22 +74,26 @@ class ProductController extends Controller
 
         // Prepare data for API request
         $data = [
-            'product_id' => $validatedData['product_name'],
+            'content_title' => $validatedData['content_title'],
+            'product_id' => $validatedData['product_id'],
             'price' => $validatedData['price'],
             'color' => $validatedData['color'],
             'description' => $validatedData['description'],
-            'category_id' => $validatedData['category_id'],
+            'category_content_id' => $validatedData['category_content_id'],
             'tags' => $validatedData['tags'],
-            'photos' => $photoUrls,
+            'photo' => $photoUrls,
         ];
         // dd($data);
         // Make API request
+
         $response = Http::withHeaders([
             'Accept' => 'application/json',
-            'Authorization' => 'Bearer 454|GwcFfaT0gmJFFWeS74gBu4HkcpgHd6dc8GbOjxSF7d3302c4',
+            'Content-Type' => 'application/json',
+            'Authorization'=>"Bearer $token",
         ])->post('https://erp.digitalindustryagency.com/api/contents', $data);
 
         dd($response->json());
+
 
         return redirect()->back()->with('success', 'Product created successfully.');
 

@@ -24,19 +24,25 @@
               <!-- Produk Form -->
               <form action="{{ route('product.store') }}" method="post" enctype="multipart/form-data" class="row g-3">
                 @csrf
-                <div class="col-md-12">
+                <div class="col-md-6">
+                    <div class="form-floating">
+                        <input type="text" class="form-control" name="content_title" id="floatingEmail" placeholder="Harga">
+                        <label for="floatingEmail">Judul Produk</label>
+                    </div>
+                </div>
+                <div class="col-md-6">
                     <div class="form-floating mb-3">
                         <select class="form-select" name="product_id" id="floatingSelect" aria-label="State">
                             @foreach ($productlist['data']['resource']['data'] as $namaproduct )
                                 <option value="{{$namaproduct['id']}}">{{$namaproduct['product_name']}}</option>
                             @endforeach
                         </select>
-                        <label for="floatingSelect">Kategori</label>
+                        <label for="floatingSelect">Produk</label>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-floating">
-                        <input type="text" class="form-control" name="price" id="floatingEmail" placeholder="Harga">
+                        <input type="number" class="form-control" name="price" id="floatingEmail" placeholder="Harga">
                         <label for="floatingEmail">Harga</label>
                     </div>
                 </div>
@@ -62,10 +68,10 @@
                 </div>
                 <div class="col-md-6">
                     <div class="form-floating mb-3">
-                        <select class="form-select" name="category_id" id="floatingSelect" aria-label="State">
-                            <option selected></option>
-                            <option value="1">Smartphone</option>
-                            <option value="2">Laptop</option>
+                        <select class="form-select" name="category_content_id" id="floatingSelect" aria-label="State">
+                            @foreach ($categoryproduct['data']['resource']['data'] as $kategori )
+                                <option value="{{$kategori['id']}}">{{$kategori['product_category_name']}}</option>
+                            @endforeach
                         </select>
                         <label for="floatingSelect">Kategori</label>
                     </div>
