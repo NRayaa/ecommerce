@@ -42,22 +42,22 @@
           <thead>
             <tr>
               <th scope="col">No</th>
-              <th scope="col">Foto Promo</th>
               <th scope="col">Judul Promo</th>
+              <th scope="col">Discount</th>
               <th scope="col">Due Date</th>
-              <th scope="col">Keterangan</th>
               <th scope="col">Opsi</th>
             </tr>
           </thead>
           <tbody>
-              {{-- @foreach ($hero['data']['resource']['data'] as $banner )
+              @foreach ($promos['data']['resource']['data'] as $promo )
                   <tr>
                       <th scope="row">{{$loop->iteration}}</th>
-                      <td>ini foto</td>
-                      <td>{{$banner['judul']}}</td>
-                      <td><a href="{{route('hero.show', $banner['id'])}}"><button type="button" class="btn btn-primary">Edit</button></a></td>
+                      <td>{{$promo['title']}}</td>
+                      <td>{{$promo['discount']}} %</td>
+                      <td>{{$promo['duedate']}}</td>
+                      <td><a href="{{route('promo.edit', $promo['id'])}}"><button type="button" class="btn btn-primary">Edit</button></a></td>
                   </tr>
-              @endforeach --}}
+              @endforeach
           </tbody>
         </table>
         <!-- End Table with stripped rows -->

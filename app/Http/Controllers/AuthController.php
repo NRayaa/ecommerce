@@ -10,21 +10,24 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $response = Http::post('https://erp.digitalindustryagency.com/api/login', [
-            'username' => $request->input('username'),
+            'email' => $request->input('email'),
             'password' => $request->input('password'),
         ]);
 
         $data = $response->json();
 
-        // Cek apakah login berhasil
-        if ($data['success']) {
+        if (isset($data['data']['resource'])) {
+            $token = $data['data']['resource']['token'];
+
             // Set session atau token di sini
-            session(['token' => $data['token']]);
-            return redirect()->route('dashboard'); // Ganti dengan nama route dashboard kamu
+            session(['token' => $token]);
+
+            return redirect()->route('dashboard');
         } else {
             // Handle jika login gagal
             return redirect()->route('login')->with('error', 'Login failed');
         }
+
     }
 
     public function logout()

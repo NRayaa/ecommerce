@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 
 class PromoController extends Controller
 {
@@ -11,7 +12,12 @@ class PromoController extends Controller
      */
     public function index()
     {
-        return view('menu-content.promo.index');
+        $token = session('token');
+        $promos=Http::withHeaders([
+            'Accept'=>'application/json',
+            'Authorization'=>"Bearer $token",
+        ])->get('https://erp.digitalindustryagency.com/api/promos');
+        return view('menu-content.promo.index', compact('promos'));
     }
 
     /**
@@ -19,7 +25,14 @@ class PromoController extends Controller
      */
     public function create()
     {
-        return view('menu-content.promo.create');
+        $token = session('token');
+
+        $product=Http::withHeaders([
+            'Accept'=>'application/json',
+            'Authorization'=>"Bearer $token",
+        ])->get('https://erp.digitalindustryagency.com/api/contents');
+        // dd($product->json());
+        return view('menu-content.promo.create', compact('product'));
     }
 
     /**
@@ -27,7 +40,28 @@ class PromoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $token = session('token');
+
+        $validatedDataProduct = $request->validate([
+            'product_id' => 'required',
+            'discount' => 'required',
+            'duedate' => 'required',
+            'limit' => 'required',
+            'caption' => 'required',
+            'title' => 'required'
+        ]);
+
+        $headers = [
+            'Accept'=>'application/json',
+            'Authorization'=>"Bearer $token",
+        ];
+
+        $response = Http::withHeaders($headers)
+        ->post('https://erp.digitalindustryagency.com/api/promos', $validatedDataProduct);
+
+        dd($response->json());
+
+
     }
 
     /**

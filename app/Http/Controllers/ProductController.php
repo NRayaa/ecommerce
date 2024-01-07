@@ -12,9 +12,11 @@ class ProductController extends Controller
      */
     public function index(Request $request)
     {
+        $token = session('token');
+
         $product=Http::withHeaders([
             'Accept'=>'application/json',
-            'Authorization'=>'Bearer 25|AFXTaPxBgmm99ALBbFZaCdmQKiLHIioRhyygxRMu468205ad'
+            'Authorization'=>"Bearer $token",
         ])->get('https://erp.digitalindustryagency.com/api/contents');
         //dd($product->json());
 
@@ -27,17 +29,19 @@ class ProductController extends Controller
      */
     public function create(Request $request)
     {
+        $token = session('token');
+
         $product=Http::withHeaders([
             'Accept'=>'application/json',
-            'Authorization'=>'Bearer 25|AFXTaPxBgmm99ALBbFZaCdmQKiLHIioRhyygxRMu468205ad'
+            'Authorization'=>"Bearer $token",
         ])->get('https://erp.digitalindustryagency.com/api/contents');
         $productlist=Http::withHeaders([
             'Accept'=>'application/json',
-            'Authorization'=>'Bearer 25|AFXTaPxBgmm99ALBbFZaCdmQKiLHIioRhyygxRMu468205ad'
+            'Authorization'=>"Bearer $token",
         ])->get('https://erp.digitalindustryagency.com/api/products');
         $categoryproduct=Http::withHeaders([
             'Accept'=>'application/json',
-            'Authorization'=>'Bearer 25|AFXTaPxBgmm99ALBbFZaCdmQKiLHIioRhyygxRMu468205ad'
+            'Authorization'=>"Bearer $token",
         ])->get('https://erp.digitalindustryagency.com/api/product-categories');
 
 
@@ -49,6 +53,7 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+        $token = session('token');
         $validatedData = $request->validate([
             'content_title' => 'required',
             'product_id' => 'required',
@@ -84,9 +89,10 @@ class ProductController extends Controller
         $response = Http::withHeaders([
             'Accept' => 'application/json',
             'Content-Type' => 'application/json',
-            'Authorization' => 'Bearer 25|AFXTaPxBgmm99ALBbFZaCdmQKiLHIioRhyygxRMu468205ad',
+            'Authorization'=>"Bearer $token",
         ])->post('https://erp.digitalindustryagency.com/api/contents', $data);
 
+        dd($response->json());
 
 
         return redirect()->back()->with('success', 'Product created successfully.');
